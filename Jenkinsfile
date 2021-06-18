@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        stage ('Qulity Gate') {
+        stage ('Quality Gate') {
             steps {
                 sleep(3)
                 timeout(time: 1, unit: 'MINUTES') {
@@ -36,8 +36,10 @@ pipeline {
         }
         stage ('API Test') {
             steps {
-                git credentialsId: 'github_login', url: 'https://github.com/antonio-QA/tasks-api-test'
-                bat 'mvn test'    
+                dir ('API Test') {
+                    git credentialsId: 'github_login', url: 'https://github.com/antonio-QA/tasks-api-test'
+                    bat 'mvn test'
+                }    
             }
         }
     }
